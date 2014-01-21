@@ -3,7 +3,7 @@
   (:use-macros
    [dommy.macros :only [node sel sel1]]))
 
-(def slide-sequence [(atom -1) (atom [])])
+(def slide-sequence [(atom 0) (atom [])])
 
 ;Showtime functions
 (defn- slide [itens]
@@ -29,14 +29,13 @@
         chosen-slide (swap! (first slide-sequence) f)]
     (cond
      (>= chosen-slide total-slides) (reset! (first slide-sequence) (dec total-slides)) 
-     (<= chosen-slide 0) (reset! (first slide-sequence) 0)
+     (< chosen-slide 0) (reset! (first slide-sequence) 0)
      :default chosen-slide)))
 
 (defn- key-control [evt]
   (cond
    (= 39 (.-keyCode evt)) (change-slide (slide-control inc))
    (= 37 (.-keyCode evt)) (change-slide (slide-control dec))))
-
 
 (dommy/listen! (sel1 :body) :keyup key-control)
 
