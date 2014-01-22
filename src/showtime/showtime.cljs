@@ -3,43 +3,43 @@
   (:use-macros
    [dommy.macros :only [node sel sel1]]))
 
-(def slide-sequence [(atom 0) (atom [])])
+(def current-slide (atom 0))
+(def ^:dynamic *slides* (atom #{}))
 
-;Showtime functions
-(defn- slide [itens]
+(defn show-click [evt]
+  (.log js/console (.-screenY evt))
+  (-> (next-slide)
+      show-slide)
+   )
+
+(defn- show-slide [itens]
+  (dommy/clear! (sel1 :#content))
   (doseq [item itens]
     (dommy/append!
      (sel1 :#content)
      (node item))))
 
-(defn add-slide [& content]
-  (swap! (last slide-sequence) conj content))
 
-(defn- change-slide [slide]
-  (dommy/clear! (sel1 :#content))
-  (doseq [x (@(last slide-sequence) slide)]
-    (dommy/append!
-     (sel1 :#content)
-     (node x))))
+(dommy/listen! (sel1 :body)
+               :click show-click)
 
 
-(defn- slide-control [f]
-  (let [total-slides (count @(last slide-sequence))
-        current-slide @(first slide-sequence)
-        chosen-slide (swap! (first slide-sequence) f)]
-    (cond
-     (>= chosen-slide total-slides) (reset! (first slide-sequence) (dec total-slides)) 
-     (< chosen-slide 0) (reset! (first slide-sequence) 0)
-     :default chosen-slide)))
+(defn- next-slide []
+  (-> (swap! current-slide inc)
+      get-slide))
 
-(defn- key-control [evt]
-  (cond
-   (= 39 (.-keyCode evt)) (change-slide (slide-control inc))
-   (= 37 (.-keyCode evt)) (change-slide (slide-control dec))))
+(defn- previous-slide []
+  (-> (swap! current-slide dec)
+      get-slide))
 
-(dommy/listen! (sel1 :body) :keyup key-control)
+(defn- get-slide [index]
+  (nth (first @*slides*) index))
 
+(defn- add-slides [slides]
+  (swap! *slides* conj slides))
 
 (defn showtime
-  []
-  (change-slide 0))
+  [& slides]
+  (add-slides slides)
+  (-> (get-slide 0)
+      show-slide))

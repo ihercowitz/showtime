@@ -1,0 +1,75 @@
+
+
+body {background: url('../img/bg.jpg'); background-repeat: no-repeat; background-size: 100%; color: #fff; font-family: Arial,Helvetica,Garuda,sans-serif; font-size: 1em;}
+#main {margin:0 auto; width:90%;}
+#content {magin-top: 15px; padding-top: 15px; padding-bottom: 20px; margin-bottom: 20px;}
+
+div.main-title {
+  width:890px; margin:-250px 0 0 -195px; position:absolute; left:30% !important; top:50%; 
+} 
+
+
+@keyframes fadein
+{
+from {opacity:0;}
+to {opcaity:1.0;}
+}
+
+@-webkit-keyframes fadein /* Safari and Chrome */
+{
+from {opacity:0;}
+to {opacity:1.0;}
+}
+
+.main-title h1 {
+   font-size: 6em;
+   -webkit-animation: fadein 5s;
+}
+
+ .header {
+  margin-left: 300px;
+  left: 50%;
+  font-size: 6em;
+} 
+
+@keyframes enter-text
+{
+  from {left:-100px;}
+  to   {left: 10px;}  
+}
+
+@-webkit-keyframes enter-text
+{
+  from {left:-100px;}
+  to   {left: 10px;}  
+}
+
+.slide-title {
+   font-size: 2.50em;
+   font-style: italic;
+   margin-bottom: 26px;
+   padding-bottom: 6px;
+   letter-spacing: 0.2em;
+   border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+   -webkit-animation: enter-text 5s;
+}
+
+.slide {
+        //padding:0 2.5% 2%;
+        background: rgba(0,0,0,.5);
+        background-clip: padding-box;
+        text-shadow:.05em .05em .1em rgba(0,0,0,.4);
+        color: white;
+        border:1px solid transparent;
+}
+
+.slide ul {
+  font-size: 1.5em;
+  line-height: 1.7em;
+  list-style-type: circle;
+} 
+
+.slide ul > .level2 {
+  font-size: 1.0em;
+  margin-left: 10px;
+}

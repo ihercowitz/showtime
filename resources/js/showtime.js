@@ -25630,124 +25630,57 @@ goog.provide("showtime.showtime");
 goog.require("cljs.core");
 goog.require("dommy.core");
 goog.require("dommy.core");
-showtime.showtime.slide_sequence = new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [cljs.core.atom.call(null, -1), cljs.core.atom.call(null, cljs.core.PersistentVector.EMPTY)], null);
-showtime.showtime.slide = function slide(itens) {
-  var seq__6239 = cljs.core.seq.call(null, itens);
-  var chunk__6240 = null;
-  var count__6241 = 0;
-  var i__6242 = 0;
-  while (true) {
-    if (i__6242 < count__6241) {
-      var item = cljs.core._nth.call(null, chunk__6240, i__6242);
-      dommy.core.append_BANG_.call(null, document.getElementById("content"), dommy.template.__GT_node_like.call(null, item));
-      var G__6243 = seq__6239;
-      var G__6244 = chunk__6240;
-      var G__6245 = count__6241;
-      var G__6246 = i__6242 + 1;
-      seq__6239 = G__6243;
-      chunk__6240 = G__6244;
-      count__6241 = G__6245;
-      i__6242 = G__6246;
-      continue;
-    } else {
-      var temp__4092__auto__ = cljs.core.seq.call(null, seq__6239);
-      if (temp__4092__auto__) {
-        var seq__6239__$1 = temp__4092__auto__;
-        if (cljs.core.chunked_seq_QMARK_.call(null, seq__6239__$1)) {
-          var c__4148__auto__ = cljs.core.chunk_first.call(null, seq__6239__$1);
-          var G__6247 = cljs.core.chunk_rest.call(null, seq__6239__$1);
-          var G__6248 = c__4148__auto__;
-          var G__6249 = cljs.core.count.call(null, c__4148__auto__);
-          var G__6250 = 0;
-          seq__6239 = G__6247;
-          chunk__6240 = G__6248;
-          count__6241 = G__6249;
-          i__6242 = G__6250;
-          continue;
-        } else {
-          var item = cljs.core.first.call(null, seq__6239__$1);
-          dommy.core.append_BANG_.call(null, document.getElementById("content"), dommy.template.__GT_node_like.call(null, item));
-          var G__6251 = cljs.core.next.call(null, seq__6239__$1);
-          var G__6252 = null;
-          var G__6253 = 0;
-          var G__6254 = 0;
-          seq__6239 = G__6251;
-          chunk__6240 = G__6252;
-          count__6241 = G__6253;
-          i__6242 = G__6254;
-          continue;
-        }
-      } else {
-        return null;
-      }
-    }
-    break;
-  }
+showtime.showtime.current_slide = cljs.core.atom.call(null, 0);
+showtime.showtime._STAR_slides_STAR_ = cljs.core.atom.call(null, cljs.core.PersistentHashSet.EMPTY);
+showtime.showtime.show_click = function show_click(evt) {
+  console.log(evt.screenY);
+  return showtime.showtime.show_slide.call(null, showtime.showtime.next_slide.call(null));
 };
-showtime.showtime.add_slide = function() {
-  var add_slide__delegate = function(content) {
-    return cljs.core.swap_BANG_.call(null, cljs.core.last.call(null, showtime.showtime.slide_sequence), cljs.core.conj, content);
-  };
-  var add_slide = function(var_args) {
-    var content = null;
-    if (arguments.length > 0) {
-      content = cljs.core.array_seq(Array.prototype.slice.call(arguments, 0), 0);
-    }
-    return add_slide__delegate.call(this, content);
-  };
-  add_slide.cljs$lang$maxFixedArity = 0;
-  add_slide.cljs$lang$applyTo = function(arglist__6255) {
-    var content = cljs.core.seq(arglist__6255);
-    return add_slide__delegate(content);
-  };
-  add_slide.cljs$core$IFn$_invoke$arity$variadic = add_slide__delegate;
-  return add_slide;
-}();
-showtime.showtime.change_slide = function change_slide(slide) {
+showtime.showtime.show_slide = function show_slide(itens) {
   dommy.core.clear_BANG_.call(null, document.getElementById("content"));
-  var seq__6260 = cljs.core.seq.call(null, cljs.core.deref.call(null, cljs.core.last.call(null, showtime.showtime.slide_sequence)).call(null, slide));
-  var chunk__6261 = null;
-  var count__6262 = 0;
-  var i__6263 = 0;
+  var seq__6166 = cljs.core.seq.call(null, itens);
+  var chunk__6167 = null;
+  var count__6168 = 0;
+  var i__6169 = 0;
   while (true) {
-    if (i__6263 < count__6262) {
-      var x = cljs.core._nth.call(null, chunk__6261, i__6263);
-      dommy.core.append_BANG_.call(null, document.getElementById("content"), dommy.template.__GT_node_like.call(null, x));
-      var G__6264 = seq__6260;
-      var G__6265 = chunk__6261;
-      var G__6266 = count__6262;
-      var G__6267 = i__6263 + 1;
-      seq__6260 = G__6264;
-      chunk__6261 = G__6265;
-      count__6262 = G__6266;
-      i__6263 = G__6267;
+    if (i__6169 < count__6168) {
+      var item = cljs.core._nth.call(null, chunk__6167, i__6169);
+      dommy.core.append_BANG_.call(null, document.getElementById("content"), dommy.template.__GT_node_like.call(null, item));
+      var G__6170 = seq__6166;
+      var G__6171 = chunk__6167;
+      var G__6172 = count__6168;
+      var G__6173 = i__6169 + 1;
+      seq__6166 = G__6170;
+      chunk__6167 = G__6171;
+      count__6168 = G__6172;
+      i__6169 = G__6173;
       continue;
     } else {
-      var temp__4092__auto__ = cljs.core.seq.call(null, seq__6260);
+      var temp__4092__auto__ = cljs.core.seq.call(null, seq__6166);
       if (temp__4092__auto__) {
-        var seq__6260__$1 = temp__4092__auto__;
-        if (cljs.core.chunked_seq_QMARK_.call(null, seq__6260__$1)) {
-          var c__4148__auto__ = cljs.core.chunk_first.call(null, seq__6260__$1);
-          var G__6268 = cljs.core.chunk_rest.call(null, seq__6260__$1);
-          var G__6269 = c__4148__auto__;
-          var G__6270 = cljs.core.count.call(null, c__4148__auto__);
-          var G__6271 = 0;
-          seq__6260 = G__6268;
-          chunk__6261 = G__6269;
-          count__6262 = G__6270;
-          i__6263 = G__6271;
+        var seq__6166__$1 = temp__4092__auto__;
+        if (cljs.core.chunked_seq_QMARK_.call(null, seq__6166__$1)) {
+          var c__4148__auto__ = cljs.core.chunk_first.call(null, seq__6166__$1);
+          var G__6174 = cljs.core.chunk_rest.call(null, seq__6166__$1);
+          var G__6175 = c__4148__auto__;
+          var G__6176 = cljs.core.count.call(null, c__4148__auto__);
+          var G__6177 = 0;
+          seq__6166 = G__6174;
+          chunk__6167 = G__6175;
+          count__6168 = G__6176;
+          i__6169 = G__6177;
           continue;
         } else {
-          var x = cljs.core.first.call(null, seq__6260__$1);
-          dommy.core.append_BANG_.call(null, document.getElementById("content"), dommy.template.__GT_node_like.call(null, x));
-          var G__6272 = cljs.core.next.call(null, seq__6260__$1);
-          var G__6273 = null;
-          var G__6274 = 0;
-          var G__6275 = 0;
-          seq__6260 = G__6272;
-          chunk__6261 = G__6273;
-          count__6262 = G__6274;
-          i__6263 = G__6275;
+          var item = cljs.core.first.call(null, seq__6166__$1);
+          dommy.core.append_BANG_.call(null, document.getElementById("content"), dommy.template.__GT_node_like.call(null, item));
+          var G__6178 = cljs.core.next.call(null, seq__6166__$1);
+          var G__6179 = null;
+          var G__6180 = 0;
+          var G__6181 = 0;
+          seq__6166 = G__6178;
+          chunk__6167 = G__6179;
+          count__6168 = G__6180;
+          i__6169 = G__6181;
           continue;
         }
       } else {
@@ -25757,90 +25690,43 @@ showtime.showtime.change_slide = function change_slide(slide) {
     break;
   }
 };
-showtime.showtime.slide_control = function slide_control(f) {
-  var total_slides = cljs.core.count.call(null, cljs.core.deref.call(null, cljs.core.last.call(null, showtime.showtime.slide_sequence)));
-  var current_slide = cljs.core.deref.call(null, cljs.core.first.call(null, showtime.showtime.slide_sequence));
-  var chosen_slide = cljs.core.swap_BANG_.call(null, cljs.core.first.call(null, showtime.showtime.slide_sequence), f);
-  if (chosen_slide >= total_slides) {
-    return cljs.core.reset_BANG_.call(null, cljs.core.first.call(null, showtime.showtime.slide_sequence), total_slides - 1);
-  } else {
-    if (chosen_slide <= 0) {
-      return cljs.core.reset_BANG_.call(null, cljs.core.first.call(null, showtime.showtime.slide_sequence), 0);
-    } else {
-      if (new cljs.core.Keyword(null, "default", "default", 2558708147)) {
-        return chosen_slide;
-      } else {
-        return null;
-      }
+dommy.core.listen_BANG_.call(null, document.body, new cljs.core.Keyword(null, "click", "click", 1108654330), showtime.showtime.show_click);
+showtime.showtime.next_slide = function next_slide() {
+  return showtime.showtime.get_slide.call(null, cljs.core.swap_BANG_.call(null, showtime.showtime.current_slide, cljs.core.inc));
+};
+showtime.showtime.previous_slide = function previous_slide() {
+  return showtime.showtime.get_slide.call(null, cljs.core.swap_BANG_.call(null, showtime.showtime.current_slide, cljs.core.dec));
+};
+showtime.showtime.get_slide = function get_slide(index) {
+  return cljs.core.nth.call(null, cljs.core.first.call(null, cljs.core.deref.call(null, showtime.showtime._STAR_slides_STAR_)), index);
+};
+showtime.showtime.add_slides = function add_slides(slides) {
+  return cljs.core.swap_BANG_.call(null, showtime.showtime._STAR_slides_STAR_, cljs.core.conj, slides);
+};
+showtime.showtime.showtime = function() {
+  var showtime__$1__delegate = function(slides) {
+    showtime.showtime.add_slides.call(null, slides);
+    return showtime.showtime.show_slide.call(null, showtime.showtime.get_slide.call(null, 0));
+  };
+  var showtime__$1 = function(var_args) {
+    var slides = null;
+    if (arguments.length > 0) {
+      slides = cljs.core.array_seq(Array.prototype.slice.call(arguments, 0), 0);
     }
-  }
-};
-showtime.showtime.key_control = function key_control(evt) {
-  if (cljs.core._EQ_.call(null, 39, evt.keyCode)) {
-    return showtime.showtime.change_slide.call(null, showtime.showtime.slide_control.call(null, cljs.core.inc));
-  } else {
-    if (cljs.core._EQ_.call(null, 37, evt.keyCode)) {
-      return showtime.showtime.change_slide.call(null, showtime.showtime.slide_control.call(null, cljs.core.dec));
-    } else {
-      return null;
-    }
-  }
-};
-dommy.core.listen_BANG_.call(null, document.body, new cljs.core.Keyword(null, "keyup", "keyup", 1115849900), showtime.showtime.key_control);
-showtime.showtime.showtime = function showtime__$1() {
-  return showtime.showtime.change_slide.call(null, 0);
-};
+    return showtime__$1__delegate.call(this, slides);
+  };
+  showtime__$1.cljs$lang$maxFixedArity = 0;
+  showtime__$1.cljs$lang$applyTo = function(arglist__6182) {
+    var slides = cljs.core.seq(arglist__6182);
+    return showtime__$1__delegate(slides);
+  };
+  showtime__$1.cljs$core$IFn$_invoke$arity$variadic = showtime__$1__delegate;
+  return showtime__$1;
+}();
 goog.provide("show_example.example");
 goog.require("cljs.core");
 goog.require("showtime.showtime");
 goog.require("showtime.showtime");
-showtime.showtime.add_slide.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "h1", "h1", 1013907515), "Slide title"], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "span", "span", 1017440956), "Esse eh o primeiro Slide e abaixo os topicos"], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, 
-"ul", "ul", 1013907977), function() {
-  var iter__4117__auto__ = function iter__6281(s__6282) {
-    return new cljs.core.LazySeq(null, function() {
-      var s__6282__$1 = s__6282;
-      while (true) {
-        var temp__4092__auto__ = cljs.core.seq.call(null, s__6282__$1);
-        if (temp__4092__auto__) {
-          var s__6282__$2 = temp__4092__auto__;
-          if (cljs.core.chunked_seq_QMARK_.call(null, s__6282__$2)) {
-            var c__4115__auto__ = cljs.core.chunk_first.call(null, s__6282__$2);
-            var size__4116__auto__ = cljs.core.count.call(null, c__4115__auto__);
-            var b__6284 = cljs.core.chunk_buffer.call(null, size__4116__auto__);
-            if (function() {
-              var i__6283 = 0;
-              while (true) {
-                if (i__6283 < size__4116__auto__) {
-                  var x = cljs.core._nth.call(null, c__4115__auto__, i__6283);
-                  cljs.core.chunk_append.call(null, b__6284, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "li", "li", 1013907695), x], null));
-                  var G__6285 = i__6283 + 1;
-                  i__6283 = G__6285;
-                  continue;
-                } else {
-                  return true;
-                }
-                break;
-              }
-            }()) {
-              return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__6284), iter__6281.call(null, cljs.core.chunk_rest.call(null, s__6282__$2)));
-            } else {
-              return cljs.core.chunk_cons.call(null, cljs.core.chunk.call(null, b__6284), null);
-            }
-          } else {
-            var x = cljs.core.first.call(null, s__6282__$2);
-            return cljs.core.cons.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "li", "li", 1013907695), x], null), iter__6281.call(null, cljs.core.rest.call(null, s__6282__$2)));
-          }
-        } else {
-          return null;
-        }
-        break;
-      }
-    }, null, null);
-  };
-  return iter__4117__auto__.call(null, cljs.core.range.call(null, 1, 10));
-}()], null));
-showtime.showtime.add_slide.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "h1", "h1", 1013907515), "Slide 2! Transicao funcionando"], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "span", "span", 1017440956), "Worked!!!!"], null));
-showtime.showtime.add_slide.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "h1", "h1", 1013907515), "Slide 3!"], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "span", "span", 1017440956), "Fuck yaeh!!!!"], null));
-showtime.showtime.add_slide.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "h1", "h1", 1013907515), "Slide 4!"], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "span", "span", 1017440956), "Agora sim!!!!"], null));
-showtime.showtime.add_slide.call(null, new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "h1", "h1", 1013907515), "Slide 5!"], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "span", "span", 1017440956), "Temos que melorar os controles"], null));
-showtime.showtime.showtime.call(null);
+show_example.example.slide1 = cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "h1", "h1", 1013907515), "Header inicial"], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "p", "p", 1013904354), "Usando \x3cp\x3e junto"], null));
+show_example.example.slide2 = cljs.core.list(new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "h1", "h1", 1013907515), "Segundo Slide"], null), new cljs.core.PersistentVector(null, 2, 5, cljs.core.PersistentVector.EMPTY_NODE, [new cljs.core.Keyword(null, "p", "p", 1013904354), "Functional way?"], null));
+showtime.showtime.showtime.call(null, show_example.example.slide1, show_example.example.slide2);
