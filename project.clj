@@ -8,8 +8,9 @@
                  [prismatic/dommy "0.1.2"]]
   :plugins [[lein-cljsbuild "1.0.1"]] 
   :cljsbuild {
-             :builds [{
-                       :source-paths ["src"]
-                       :compiler {
-                                  :output-to "resources/js/showtime.js"
-                                  :optimizations :whitespace}}]})
+    :builds [{
+      :source-paths ["src"]
+      :compiler {
+        :output-to "resources/js/showtime.js"
+        :optimizations :advanced
+        :pretty-print false}}]})
